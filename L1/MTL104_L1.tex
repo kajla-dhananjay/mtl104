@@ -1,0 +1,202 @@
+%
+% This is the LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[3]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{lecnum}{#1}
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf MTL104 : Linear Algebra
+						\hfill Spring 2020-21} }
+				\vspace{4mm}
+				\hbox to 6.28in { {\Large \hfill Lecture #1  \hfill} }
+				\vspace{2mm}
+				\hbox to 6.28in { {\ Date : #2 \hfill Scribe: #3} }
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{Lecture #1}{Lecture #1}
+	
+	{\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+	
+	{{\bf Disclaimer}: These notes are {\bf unofficial} and were meant for personal use. Therefore accuracy of these notes are not guaranteed. And therefore the liability for any factual errors does not lie with either the author or the instructor.}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+		{[\arabic{equation}]}{\usecounter{equation}
+			\setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+			\setlength{\labelwidth}{1.6truecm}}}
+	\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+	\vspace{#2}
+	\begin{center}
+		Figure \thelecnum.#1:~#3
+	\end{center}
+}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+	%FILL IN THE RIGHT INFO.
+	%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+	\lecture{1}{3 Feburary 2021}{Dhananjay Kajla}
+	%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+	
+	% **** YOUR NOTES GO HERE:
+	
+	% Some general latex examples and examples making use of the
+	% macros follow.  
+	%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+	%**** ARE NEVER READ BY ANYBODY.
+
+\section{Definitions}
+
+\subsection{Cartesian Product}
+\begin{itemize}
+	\item Suppose $G$ is a non-empty set, Then :
+	\[G \times G = \{(a,b); a \in G, b \in G\}\]
+\end{itemize}
+
+\subsection{Binary Operation}
+\begin{itemize}
+	\item If $f : G \times G \rightarrow G$, then f is said to be a binary operation on the set $G$
+	\item We often use the symbols $+, \times, \cdot, \circ$, etc to denote binary operations.
+	\item For e.g., '+' is a binary operation in $G$ only iff 
+	\[\forall a,b \in G\text{, } a + b \in G \text{ and a+b is unique} \]
+\end{itemize}
+
+\subsection{Conventions}
+\begin{itemize}
+	\item $\mathbb N$ - Set of Natural Numbers
+	\item $\mathbb Z$ - Set of Integers
+	\item $\mathbb Q$ - Set of Rational Numbers
+	\item $\mathbb R$ - Set of Real Numbers
+	\item $\mathbb C$ - Set of Complex Numbers
+	
+\end{itemize}
+
+\subsection{Algebraic Structure or Algebraic System}
+\begin{itemize}
+	\item A non-empty set G equipped with one or more binary operations is called an algebraic structure.
+	\item Suppose * is a binary operation on $G$, then $(G,*)$ is an algebraic structure.
+	\item E.g.
+	\begin{itemize}
+		\item $(\mathbb N, +)$
+		\item $(\mathbb R, +, \cdot)$
+	\end{itemize}
+\end{itemize}
+
+\subsection{Group}
+\begin{itemize}
+	\item Suppose S is a non-empty set and let * be a binary operation defined on S.
+	\item i.e. $* : S \times S \rightarrow S$ 
+	\item We say $(S,*)$ is a group if it satisfies the following properties :
+		\begin{itemize}
+			\item $\forall a,b,c \in S \text{, }  a * (b * c) = (a * b) * c$
+			\item $\exists z \in S \text{ such that, } \forall a \in S, a * z = z * a = a $ (Identity)
+			\item $\forall a \in S \text{, } \exists a^{-1} \in S \text{such that, } a * a^{-1} = a^{-1} * a = z$ (Inverse)
+		\end{itemize}
+\end{itemize}
+
+\subsection{Abelian/Commutative Group}
+\begin{itemize}
+	\item If $(S, *)$ is a group such that $\forall a, b \in S \text{, } a * b = b * a$ (* is Commutative), then $(S, *)$ is called an Abelian group or Commutative Group.
+\end{itemize}
+
+\subsection{Field}
+\begin{itemize}
+	\item Suppose F is a non-empty set equipped with two binary operations called addition and multiplication, denoted by '+' and $'\cdot'$, respectively. 
+	\item That is, $\forall a,b \in F \text{, we have : } a + b \in F \text{ and } a \cdot b \in F $.
+	\item Then the algebraic structure $(F, +, \cdot)$ is called a field, if the following properties are satisfied : 
+		\begin{enumerate}
+			\item Addition is commutative. i.e. $\forall a,b \in F \text{, } a + b = b + a$
+			\item Addition is associative. i.e. $\forall a,b,c \in F \text{, } a + (b + c) = (a + b) + c$
+			\item $\exists \mathbf{0}\in F \text{ (called zero), such that } \forall a \in F \text{, } a + \mathbf{0} = \mathbf{0} + a = a$
+			\item $\forall a \in F \text{, } \exists (-a) \in F \text{, such that : } a + (-a) = \mathbf{0}$
+			\item Multiplication is commutative. i.e. $\forall a,b \in F \text{, } a \cdot b = b \cdot a$
+			\item Multiplication is associative. i.e. $\forall a,b,c \in F \text{, } a \cdot (b \cdot  c) = (a \cdot b) \cdot c$
+			\item $\exists \mathbf{1}\in F \text{ (called zero), such that } \forall a \in F \text{, } a \cdot \mathbf{1} = \mathbf{1} \cdot a = a$
+			\item $\forall a \in F \text{, } \exists a^{-1} \in F \text{, such that : } a \cdot a^{-1} = \mathbf{1}$
+			\item Multiplication Distributes over addition, i.e. $\forall a,b,c \in F \text{, } a \cdot (b + c) = a \cdot b + a \cdot c $ (left distribution) and $\forall a,b,c \in F \text{, } (a + b) \cdot c = a \cdot c + b \cdot c$ (right distribution)
+		\end{enumerate}
+	\item Notice that property 1-4 essentially states that $(F,+)$ is abelian. Similarly properties 5-8 states that $(F,*)$ is abelian.
+	\item Note that $\mathbf{0}$ is called that Zero element of the field(F) and $\mathbf{1}$ is called the Unity element of the field(F).
+	\item Equivalently, $(F, +, \cdot)$ is a field iff
+		\begin{enumerate}
+			\item (F, +) is an abelian group.
+			\item (F, $\cdot$) is an abelian group.
+			\item Addition and Multiplication are linked by distributive property for both left and right distribution.
+		\end{enumerate}
+	\item Equivalently, A commutative division ring is a field.
+\end{itemize}
+\end{document}
+
+
+
+
+
