@@ -1,0 +1,179 @@
+%
+% This is the LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[3]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{lecnum}{#1}
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf MTL104 : Linear Algebra
+						\hfill Spring 2020-21} }
+				\vspace{4mm}
+				\hbox to 6.28in { {\Large \hfill Lecture #1  \hfill} }
+				\vspace{2mm}
+				\hbox to 6.28in { {\ Date : #2 \hfill Scribe: #3} }
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{Lecture #1}{Lecture #1}
+	
+	{\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+	
+	{{\bf Disclaimer}: These notes are {\bf unofficial} and were meant for personal use. Therefore accuracy of these notes are not guaranteed. And therefore the liability for any factual errors does not lie with either the author or the instructor.}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+		{[\arabic{equation}]}{\usecounter{equation}
+			\setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+			\setlength{\labelwidth}{1.6truecm}}}
+	\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+	\vspace{#2}
+	\begin{center}
+		Figure \thelecnum.#1:~#3
+	\end{center}
+}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+	%FILL IN THE RIGHT INFO.
+	%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+	\lecture{2}{4 Feburary 2021}{Dhananjay Kajla}
+	%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+	
+	% **** YOUR NOTES GO HERE:
+	
+	% Some general latex examples and examples making use of the
+	% macros follow.  
+	%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+	%**** ARE NEVER READ BY ANYBODY.
+	
+	\section{Linear Combinations and Independence}
+	\subsection{Linear Independence}
+	\begin{itemize}
+		\item A finite set $\{x_1, x_2, ..., x_n\}$ of vectors in V is called linearly independent iff :
+		\[\alpha_1 x_1 + \alpha_2 x_2 + \alpha_3 x_3 ... + \alpha_n x_n = \mathbf{0} \implies \alpha_1 = \alpha_2 = ... = \alpha_n = 0\]
+		\item Let $X \subseteq V$, $X$ is said to be linearly independent if every finite subset of X is linearly independent.
+	\end{itemize}
+	\subsection{Properties of Linear Independence}
+	\begin{itemize}
+		\item A set of vectors with contains $\mathbf{0}$ as one of it's element is linearly dependent.
+		\item The set $\{x\}$ is linearly independent iff $x \neq 0$
+		\item Any subset of a linearly independent set is linearly independent.
+		\item Any superset of a linearly dependent set is linearly dependent.
+		\item If $\{x_1, x_2, ..., x_n\}$ is linearly independent and if $\{a_1, a_2, ..., a_n\} \in F$ and $\{b_1, b_2, ..., b_n\} \in F$, then
+		\[a_1 x_1 + a_2 x_2 + a_3 x_3 + ... a_n x_n = b_1 x_1 + b_2 x_2 + b_3 x_3 + ... + b_n x_n \implies a_1 = b_1, a_2 = b_2, ..., a_n = b_n\]
+		\item {\bf Lemma :} The set of non-zero vectors $\{x_1, x_2, ..., x_n\} \in V$ is linearly dependent if and only if any one of them, say $x_j$ can be expressed as a {\it linear combination} of the other vectors.
+	\end{itemize}
+	\subsection{Linear Combination of vectors}
+	\begin{itemize}
+		\item If V(F) is a vector space and $\{x_1, x_2, ..., x_n \} \in V$ and $\{\alpha_1, \alpha_2, ..., \alpha_n\} \in F$, then the vector $x = \alpha_1 x_1 + \alpha_2 x_2 + ... + \alpha_n x_n = \sum_{i=1}^{n}(\alpha_i x_i)$ is called the linear combination of vectors $\{x_1, x_2, ..., x_n\}$
+	\end{itemize}
+	\subsection{Linear Span of a set}
+	\begin{itemize}
+		\item The linear span of a non-empty subset S of V(F) is the set of all linear combinations of any finite number of elements of S and is denoted by $L(S)$ (Some textbooks denote it as $<S>$)
+	\end{itemize}
+	\subsection{Basis of a set}
+	\begin{itemize}
+		\item If S is a subset of a vector space V(F) such that :
+		\begin{enumerate}
+			\item S is a linearly independent set of vectors of V(F)
+			\item Every vector $v\ in V(F)$ is a linear combination of elements of S or in other words $L(S) = V$, then S is called the basis of V(F).
+		\end{enumerate}
+		\item Zero vector ($\mathbf{0}$) cannot be an element of any basis of V(F)
+	\end{itemize}
+	\subsection{Finitely Generated Vector Spaces}
+	\begin{itemize}
+		\item A vector space V(F) is said to be finitely generated if there exists a finite subset S of V such that $V = L(S)$ or if $V(S)$ has a finite spanning set.
+		\item Equivalently a vector space is finitely generated if it's basis is finite.
+		\item In a finitely generate vector space V(F), whose basis set is $B = {x_1, x_2, ..., x_n}$, every vector $x \in V$ is uniquely expressible as a linear combination of vectors in $B$.
+		\item {\bf Existence Theorem : } There exists a basis for each finite dimensional vector space.
+	\end{itemize}
+	\subsection{Dimension of a vector space}
+	\begin{itemize}
+		\item The dimension of a finitely generated vector space V(F) is the cardinality of any basis of V(F) and is represented as $dim(V)$.
+		\item {\bf Extension Theorem : } If V(F) is a finitely generated vector space, and $A = {x_1, x_2, ..., x_m}$ is any linearly independent set of vectors in V, then unless the $x_i s$ already form a basis, we can find the vectors $\{y_1, y_2, ..., y_{n-m}\}$ so that the extended set of n vectors $\{x_1, x_2, ..., x_m, y_1, y_2, ..., y_{n-m}\}$ is a basis.
+		\item In a finitely generated vector space, the cardinality of every basis is the same and is equal to the dimension of the vector space.
+	\end{itemize}
+	\subsection{Subspace of a vector space}
+	\begin{itemize}
+		\item A subset $W$ of a vector space $V$ over a field $F$ is called a subspace of $V$ if $W$ is a vector space over $F$ with the same operations of addition and multiplication as defined for $V$.
+		\item {\bf Theorem :} Let $V$ be a vector space and $W$ be a subset of $V$. Then $W$ is a subspace of $V$ if and only if the following three conditions hold for operations defined in V.
+		\begin{enumerate}
+			\item $\mathbf{0} \in W$
+			\item $x+y \in W$ whenever $x \in W$ and $y \in W$
+			\item $\alpha x \in W$ whenever $x \in W$ and $\alpha \in F$
+		\end{enumerate}
+	\end{itemize}
+\end{document}
+
+
+
+
+
