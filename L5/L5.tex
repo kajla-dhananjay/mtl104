@@ -1,0 +1,156 @@
+%
+% This is the LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi.
+%
+
+\documentclass[twoside]{article}
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx,xcolor}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[3]{
+	\pagestyle{myheadings}
+	\thispagestyle{plain}
+	\newpage
+	\setcounter{lecnum}{#1}
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{
+			\vbox{\vspace{2mm}
+				\hbox to 6.28in { {\bf MTL104 : Linear Algebra
+						\hfill Spring 2020-21} }
+				\vspace{4mm}
+				\hbox to 6.28in { {\Large \hfill Lecture #1  \hfill} }
+				\vspace{2mm}
+				\hbox to 6.28in { {\ Date : #2 \hfill Scribe: #3} }
+				\vspace{2mm}}
+		}
+	\end{center}
+	\markboth{Lecture #1}{Lecture #1}
+	
+	{\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+	
+	{{\bf Disclaimer}: These notes are {\bf unofficial} and were meant for personal use. Therefore accuracy of these notes are not guaranteed. And therefore the liability for any factual errors does not lie with either the author or the instructor.}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+		{[\arabic{equation}]}{\usecounter{equation}
+			\setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+			\setlength{\labelwidth}{1.6truecm}}}
+	\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+	\vspace{#2}
+	\begin{center}
+		Figure \thelecnum.#1:~#3
+	\end{center}
+}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+	%FILL IN THE RIGHT INFO.
+	%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+	\lecture{5}{11 Feburary 2021}{Dhananjay Kajla}
+	%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+	
+	% **** YOUR NOTES GO HERE:
+	
+	% Some general latex examples and examples making use of the
+	% macros follow.  
+	%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+	%**** ARE NEVER READ BY ANYBODY.
+	\section{Subspaces}
+	\subsection{Direct sum of subspaces}
+	{\bf Theorem : }$V = W_1 \oplus W_2 \iff V = W_1 + W_2$ and $W_1 \cap W_2 = \{0\}$  \\
+	
+	{\bf Proof($ \implies $)} :
+	\begin{itemize}
+		\item Suppose $V = W_1 \oplus W_2$
+		\item $V = W_1 \oplus W_2 \implies V = W_1 + W_2$
+		\item To prove : $W_1 \cap W_2 = \{0\}$ 
+		\item Let $z = W_1 \cap W_2$ where $z \neq 0$
+		\item Then : $z = {\color{green}\mathbf{0}} + {\color{blue} z} = {\color{green}z} + {\color{blue}\mathbf{0}}$ where blue elements belong to $W_1$ and green elements belong to $W_2$
+		\item As z has been expressed in two ways, therefore the representation is not unique.
+		\item Therefore z has to be $\mathbf{0}$. Hence proved.
+	\end{itemize}
+
+	{\bf Proof($\impliedby$)}:
+	\begin{itemize}
+		\item Suppose $V = W_1 + W_2$ and $W_1 \cap W_2 = \{0\}$ 
+		\item To Prove : $V = W_1 \oplus W_2$
+		\item let $z \in V$. 
+		\item Let blue represent the fact that the element belongs to $W_1$ and green elements belong to $W_2$
+		\item Suppose the following two representations of z exist:
+		\begin{itemize}
+			\item $z = {\color{blue}x_1 + \color{green}y_1}$ 
+			\item $z = {\color{blue}x_2 + \color{green}y_2}$
+		\end{itemize}
+		\item Then $x_1 + y_1 = x_2 + y_2 = z$
+		\item ${\color{blue}x_1 - x_2} = {\color{green}y_1 - y_2}$
+		\item Clearly LHS = RHS
+		\item But as ${\color{blue}W_1} \cap {\color{green}W_2} = \{0\}$
+		\item Therefore, $x_1 - x_2 = 0$ and $y_1 - y_2 = 0$
+		\item Therefore $x_1 = x_2$ and $y_1 = y_2$
+		\item Therefore each $z \in V$ is uniquely represented as ${\color{blue}x} + {\color{green}y}$
+		\item Therefore $V = W_1 \oplus W_2$
+	\end{itemize}
+\end{document}
+
+
+
+
+

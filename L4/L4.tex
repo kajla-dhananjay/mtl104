@@ -24,7 +24,7 @@
 % ADD PACKAGES here:
 %
 
-\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{amsmath,amsfonts,graphicx,xcolor}
 
 %
 % The following commands set up the lecnum (lecture number)
@@ -113,7 +113,8 @@
 	% macros follow.  
 	%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
 	%**** ARE NEVER READ BY ANYBODY.
-	\section{Properties of subspaces}
+	\section{Subspaces}
+	\subsection{Examples of subspaces}
 	\begin{itemize}
 		\item V(F) is also a subspace, so is $\{0\}$.
 		\item Let V be the vector space $\mathbb{R}^{3}$. Then the set $W$ consisting of those vectors whose third component is zero, i.e. $w = \{a,b,0 : a,b \in \mathbb{R}\}$ is a subspace of $\mathbb{R}^{3}$
@@ -124,12 +125,68 @@
 			\item A function $f \in V$ is bounded iff $\exists M \in R$ such that $|f(x)| \leq M$
 		\end{itemize}
 		\item Let S be a non-empty subset of V(F), The set of all linear comination of vectors in S, denoted by $L(S)$, is a subspace of V containing S.
-		\item Furthermore, if $W$ is any other subspace of $V$ containing $S$, then $L(S) \leq W$.
+		\item Furthermore, if $W$ is any other subspace of $V$ containing $S$, then $L(S) \subseteq W$.
 		\item The solution space of a system of linear equations $\subseteq R^{n\times 1}$
 		\item In $F^{n}$, the set of all n-tuples $(x_1, x_2, ..., x_n)$ with $x_1 = 0$ is a subspace.
 		\item The set of all hermitian matrices is {\bf NOT} a subspace of the space of all $n \times n$ matrices over $\mathbb{C}$. The set of all $n \times n$ complex hermitian matrices is a vector space over the field of real numbers.
-		\item Suppose $W_1$ and $W_2$ are subspaces of a vector space V(F)
-		\item 
+		\end{itemize}
+	\subsection{Few Properties of subspaces}
+	\begin{enumerate}
+		\item Suppose $W_1$ and $W_2$ are subspaces of a vector space V(F), Then
+		\begin{itemize}
+			\item $W_1 \cup W_2$ need not be a subspace of V
+				\begin{itemize}
+					\item For example. Consider the vector space of $\mathbb{R}^{2}$, with $W_1 = \{(a,0); a \in \mathbb{R}\}$ and $W_2 = \{(0,b); b\in \mathbb(R)\}$. Then $(1,0) \in W_1$ and $(0,1) \in W_2$, but their addition $(1,0) + (0,1) = (1,1) \notin W_1 \cup W_2$.
+					\item Hence addition is not closed, hence $W_1 \cup W_2$ is not a subspace of V
+				\end{itemize}
+			\item $W_1 \cap W_2$ is a subspace of V. Proof :  
+				\begin{itemize}
+					\item $\mathbf{0} \in W_1 \text{, } \mathbf{0} \in W_2 \implies \mathbf{0} \in W_1 \cap W_2$
+					\item Let $x, y \in W_1 \cap W_2 \text{, } \alpha \in F$,
+					\item Now $x \in W_1 \cap W_2 \implies x \in W_1 \text{ and } x \in W_2$ 
+					\item Similarly $y \in W_1 \cap W_2 \implies y \in W_1 \text{ and } y \in W_2$ 
+					\item Since $W_1$ is a subspace, $\alpha (x + y) \in W_1$
+					\item Similarly $W_2$ is a subspace, so $\alpha (x + y) \in W_2$
+					\item Therefor $\alpha (x + y) \in W_1 \cap W_2$
+				\end{itemize}
+		\end{itemize}
+		\item Let $V$ be a vector space over the field F, then intersection of any collection of subspaces (i.e. Arbitrary intersection of subspaces) is a subspace in V. 
+	\end{enumerate}
+	\subsection{Linear Sum of Subspaces}
+	\begin{itemize}
+		\item Let $W_1$ and $W_2$ be two subspaces of a vector space V(F), Then the linear sum of subspaces, denoted by $W_1 + W_2$ is defined as :
+		\[W_1 + W_2 = \{x_1 + x_2 : x_1 \in W_1, x_2 \in W_2\}\]
+		\item {\bf Theorem :} If $W_1$ and $W_2$ are subspaces of a vector space V(F), then $W_1 + W_2$ is a subspace of V(F)
+		\item Proof :
+			\begin{itemize}
+				\item $\mathbf{0} = {\color{green} \mathbf{0}} + {\color{blue} \mathbf{0}}$ where ${\color{green} \mathbf{0}} \in W_1$ and ${\color{blue}\mathbf{0}} \in W_2$
+				\item let $x, y \in W_1 + W_2 \text{, } \alpha \in F$, then :
+					\begin{itemize}
+						\item $x = x_1 + x_2$ where $x_1 \in W_1$ and $x_2 \in W_2$
+						\item $y = y_1 + y_2$ where $y_1 \in W_1$ and $y_2 \in W_2$
+					\end{itemize}
+				\item Consider $\alpha x + y = \alpha (x_1 + x_2) + (y_1 + y_2) = (\alpha x_1 + y_1) + (\alpha x_2 + y_2)$
+					\begin{itemize}
+						\item Now $(\alpha x_1 + y_1) \in W_1$ as $W_1$ is a subspace 
+						\item Similarly $(\alpha x_2 + y_2) \in W_2$ as $W_2$ is a subspace
+						\item Therefore $\alpha x + y \in W_1 + W_2$ 
+					\end{itemize}
+				\item Therefore $W_1 + W_2$ is a subspace of V
+			\end{itemize}
+		\item If $W_1, W_2, ..., W_k$ are subspaces of the vector space V(F). Then their linear sum, denote by $W_1 + W_2 + ... + W_k$ is defined as :
+		\[W_1 + W_2 + ... + W_k = {x_1 + x_2 + ... + x_k : x_i \in W_i, 1 \leq i \leq k}\]
+		\item $W_1 + W_2 + ... + W_k$ is a subspace of V(F)
+	\end{itemize}
+	\subsection{Direct Sum of Subspaces}
+	\begin{itemize}
+		\item The vector space V over the field F is the direct sum of two vector spaces $W_1$ and $W_2$ if 
+			\begin{enumerate}
+				\item $V = W_1 + W_2$
+				\item Every vector $z\ in V$ can be uniquely expressed as the sum of $x_1 + x_2$ where $x_1 \in W_1$ and $x_2 \in W_2$
+			\end{enumerate}
+		\item If the vector space V(F) is the direct sum of two subspaces, $W_1$ and $W_2$, we write,
+		\[V = W_1 \oplus W_2\]
+		\item {\bf Theorem :} $V = W_1 \oplus W_2 \iff V = W_1 + W_2$ and $W_1 \cap W_2 = \{0\}$
 	\end{itemize}
 \end{document}
 
